@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UrlshortnerService } from '../urlshortner.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-urlgenshort',
@@ -9,56 +10,33 @@ import { UrlshortnerService } from '../urlshortner.service';
 })
 export class UrlgenshortComponent implements OnInit {
 
-  urlShortForm;
-  getUrlData;
-  listurl;
+  form;
+  list;
+  
 
-   constructor(private urlshortservice:UrlshortnerService) {
-     this.urlShortForm = new FormGroup({
-       'longurl': new FormControl('',Validators.required), 
-      'shorturl':new FormControl(),
-      
-     }) 
- 
-   }
- 
-   ngOnInit(): void {
- 
-     this.getAllurls();
-   }
-   
- getAllurls()
- {
-   this.urlshortservice.getAllUrlData().subscribe((data) => {
-     this.listurl=data;
-      
+   constructor(private urlshortservice:UrlshortnerService, private router: Router) {
+    this.form = new FormGroup({
+      'URL': new FormControl('',Validators.required), 
+     
+
+     
+    }) 
+
+    this.urlshortservice.getURLs().subscribe((data) => {
+      this.list = data;
     })
- }
-   sendData() {
-     if (this.urlShortForm.valid) {
-      
-       this.urlshortservice.generateURLShortner(this.urlShortForm.value).subscribe((data) => {
- 
-         
-         console.log(data.message);
-         this.getUrlData=data;       
-         this.getAllurls();
-         
-         
-       })
- 
-       
-     }
-   
-   }
- 
-  /* redirecturl(shorturlid)
-   {
-     this.urlshortservice.getURLShort(shorturlid).subscribe((data)=>{    
-      this.getAllurls();
-      window.location.href = data.longurl;
-     })
-   }
- */
-   
-}
+  }
+
+  ngOnInit(): void {
+
+  }
+    postURL() {
+      if (this.form.valid) {
+        this.urlshortservice.postURL(this.form.value).subscribe((url)=>{
+           this.router.navigate([''])
+        })
+      }
+
+    }
+  }
+  

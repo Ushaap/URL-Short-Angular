@@ -7,19 +7,11 @@ import { Observable } from 'rxjs';
 export class UrlshortnerService {
 
   constructor(private http:HttpClient) { }
-  generateURLShortner(data):Observable<any>
-  {
-    return this.http.post('http://localhost:3000/generateurl',data);
-  }
 
-  getAllUrlData():Observable<any>
-  {
-    return this.http.get('http://localhost:3000/allurl');
+  postURL(data): Observable<any> {
+    return this.http.post('http://localhost:3000/create', data)
   }
-
-  getURLShort(shorturl):Observable<any>
-  {
-    
-    return this.http.get('http://localhost:3000/redirecturl/'+shorturl);
+  getURLs(): Observable<any> {
+    return this.http.get('http://localhost:3000/view')
   }
 }

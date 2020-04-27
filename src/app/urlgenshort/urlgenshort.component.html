@@ -1,52 +1,51 @@
-  
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+</head>  
 <div class="container">
-    <form [formGroup]="urlShortForm" (submit)="sendData()">
-        <h1 class="text-primary">URL SHORTNER</h1>
-        <div class="row">      
-            <div class="col-lg-6">
-                <label for="" class="text-secondary"><b>Paste the URL to be Shortened</b></label>                          
-                <input type="text" placeholder="Paste Your URL Here" class="form-control" formControlName="longurl">
+  <form [formGroup]="form" (submit)="postURL()">
+      <h1 class="text-primary">URL SHORTNER</h1>
+      <div class="row">      
+          <div class="col-lg-6">
+              <label for="" class="text-secondary"><b>Paste the URL to be Shortened</b></label>                          
+              <input type="text" placeholder="Paste Your URL Here" class="form-control" formControlName="URL">
 
-                
-            </div> 
-        </div>
-        
-       <div class="row">
-            <div class="col-lg-6">
-                <label for="" class="text-secondary"><b>Short URL</b></label>            
-                <input type="text" class="form-control" formControlName="shorturl" value="http://localhost:3000/{{getUrlData?.shorturl}}" readonly>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <input type="submit" class="btn btn-primary" value="Submit">
-            </div>
-        </div>
+              
+          </div> 
+      </div>
+      
+     
+      <div class="row">
+          <div class="col-lg-6">
+              <input type="submit" class="btn btn-primary" value="Submit">
+          </div>
+      </div>
 
-        
-    </form>
+      
+  </form>
 </div>
 
-    <hr>
-    
-    <div class="container">
-      <table class="table table-hover">
-          <thead class="thead-dark">
-            <tr>       
-              <th>Longurl</th>
-              <th>Shorlurl</th>
-              <th>count</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let url of listurl">
-              <td>{{url.longurl}}</td> 
-              <td><a href="https://localhost:3000/redirecturl/{{url.shorturl}}" target="_blank" crossorigin="anonymous">https://localhost:3000/redirecturl/{{url.shorturl}}</a></td>   
-              <td>{{url.clickcount}}</td>
-              
-            </tr>
-            
-          </tbody>
-        </table>
-  </div>
+  <hr>
   
+  <div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>       
+            <th>Longurl</th>
+            <th>Shorlurl</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let link of list">
+            <td>{{link.long}}</td> 
+            <td><a href="{{link.long}}">{{link.short}}</a></td>   
+           
+            
+          </tr>
+          
+        </tbody>
+      </table>
+</div>
